@@ -9,6 +9,7 @@
   "author": "Xellos",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.3",
     "readline-sync": "^1.4.10"
   }
 }
