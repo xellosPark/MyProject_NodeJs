@@ -48,17 +48,86 @@
 //     console.log(" The server is listening on port 3000");
 // });
 
-// EXPRESS 이용하여 HTTP 서버 만들기
+// // EXPRESS 이용하여 HTTP 서버 만들기
+//  const express = require('express');
+//  const server = express();
+
+// // //GET       www.facebook.com/
+// // //PORT      ID:abc Pass:1234
+// // //DELETE    
+// // //PUT       
+
+//  server.get("/",(req,res) => {
+//      //res.send("<h1>Hello from nodejs</h1>");
+//      //__dirname : 현재 폴더
+//      //__filename : 실행 파일 명
+//      res.sendFile(__dirname + "/index.html");
+//  });
+
+//  server.get("/about",(req,res) => {
+//     res.sendFile(__dirname + "/about.html");
+// });
+
+// server.listen(3000,(err) => {
+//     if(err) return console.log("err log :" + err);
+//     console.log("The server if listening on port 3000");
+// });
+
+// // EXPRESS 이용하여 HTTP 서버, Middleware 만들기 
+// const express = require('express');
+// const server = express();
+
+// // Middleware 부분
+// // next 처리 끝나고 다음 단계로 이동 
+// //  server.use((req, res, next) => {
+// //   console.log("Hi from client");
+// //   req.user = {
+// //     id: "1234",
+// //   };
+// //   next();
+// //  });
+
+// server.use(express.static(__dirname + "/public"))
+
+// server.get("/",(req,res) => {
+//     // console.log(req.user);
+//     res.sendFile(__dirname + "/index.html");
+// });
+
+// server.get("/about",(req,res) => {
+//     res.sendFile(__dirname + "/about.html");
+// });
+
+// // 해당 페이지가 없는경우에는 404 발생하는 html 
+// server.use((req, res) => {
+//   res.sendFile(__dirname + "/404.html");
+//  });
+
+// server.listen(3000,(err) => {
+//     if(err) return console.log("err log :" + err);
+//     console.log("The server if listening on port 3000");
+// });
+
+// // express-handlebars 이용하여
 const express = require('express');
+const hds = require("express-handlebars");
 const server = express();
 
+server.use(express.static(__dirname + "/public"))
+
 server.get("/",(req,res) => {
-    res.send("<h1>Hello from nodejs</h1>");
+    // console.log(req.user);
+    res.sendFile(__dirname + "/index.html");
 });
-//GET       www.facebook.com/
-//PORT      ID:abc Pass:1234
-//DELETE    
-//PUT       
+
+server.get("/about",(req,res) => {
+    res.sendFile(__dirname + "/about.html");
+});
+
+// 해당 페이지가 없는경우에는 404 발생하는 html 
+server.use((req, res) => {
+  res.sendFile(__dirname + "/404.html");
+ });
 
 server.listen(3000,(err) => {
     if(err) return console.log("err log :" + err);
