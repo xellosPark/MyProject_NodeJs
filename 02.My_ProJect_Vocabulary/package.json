@@ -13,5 +13,8 @@
     "express-handlebars": "^6.0.3",
     "package.json": "^2.0.1",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

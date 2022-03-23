@@ -113,23 +113,41 @@ const express = require('express');
 const hds = require("express-handlebars");
 const server = express();
 
-server.use(express.static(__dirname + "/public"))
+server.engine('hbs', hds.engine({
+        extname: 'hbs',
+        defaultLayout:'layout.hbs',
+        partialsDir:'partials',
+    })
+);
+
+// hbs 설정
+server.set('view engine', 'hbs');
+server.use(express.static(__dirname + "/public"));
 
 server.get("/",(req,res) => {
     // console.log(req.user);
-    res.sendFile(__dirname + "/index.html");
+    res.render("home",{
+      message: "Hello from node.js",
+    });
 });
-
-server.get("/about",(req,res) => {
-    res.sendFile(__dirname + "/about.html");
-});
-
-// 해당 페이지가 없는경우에는 404 발생하는 html 
-server.use((req, res) => {
-  res.sendFile(__dirname + "/404.html");
- });
 
 server.listen(3000,(err) => {
     if(err) return console.log("err log :" + err);
     console.log("The server if listening on port 3000");
 });
+
+// const express = require('express');
+// const expressHbs = require('express-handlebars');
+// const app = express();
+
+// const expressHbs = require('express-handlebars');
+
+// app.engine('handlebars', expressHbs.engine({
+//     layoutsDir: 'views/layouts/',
+//     defaultLayout: null,
+//     extname: 'handlebars'
+//   })
+// );
+
+// app.set('view engine', 'handlebars');
+// app.set('views', 'views');    // optional
