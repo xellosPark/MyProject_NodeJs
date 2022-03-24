@@ -1,1 +1,23 @@
-<h1>{{ message }}</h1>
+<div class="ui main text container">
+  <h1 class="ui header">Semantic UI Fixed Template</h1>
+  <form method="POST" action="/">
+    <div class="ui action input fluid">
+      <input type="text" placeholder="Search..." name="query">
+      <button class="ui button" type="submit">Search</button>
+    </div>
+  </form>
+  {{#each words}}
+  <div class="card flex-box">
+    <div class="flex-1 main-word">
+      <h1>{{this.word}}</h1>
+    </div>
+    <div class="flex-1 word-list">
+      <ul>
+        {{#each this.definition}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  {{/each}}
+</div>
