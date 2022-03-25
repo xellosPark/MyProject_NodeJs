@@ -113,7 +113,8 @@ const express = require('express');
 const hds = require("express-handlebars");
 const bodyParser = require("body-parser");
 const server = express();
-const words = require("./db/words.json");
+//const words = require("./db/words.json");
+let words = require("./db/words.json");
 
 // console.log(words);
 // console.log(typeof words);
@@ -145,6 +146,12 @@ server.post("/", (req,res) => {
     res.render("home",{
         words: words.filter(w=>w.word.toLocaleUpperCase().includes(query.toLocaleUpperCase()))
     });
+});
+
+server.delete("/",(req,res) => {
+    console.log(req.body);
+    let {word} = req.body;
+    words = words.filter(w=>!(w.word === word));
 });
 
 server.get("/add", (req, res) => {

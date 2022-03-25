@@ -18,6 +18,22 @@
         {{/each}}
       </ul>
     </div>
+    <div class="delete-btn" onclick="deleteWord(this, '{{this.word}}')">
+      <div>X</div>
+    </div>
   </div>
   {{/each}}
 </div>
+<script>
+  const deleteWord = (el,word)=>{
+    $.ajax("/",{
+      method:"DELETE",
+      data:{
+        word,
+      }
+    })
+    let p = el.parentNode.parentNode;
+    let c = el.parentNode;
+    p.removeChild(c);
+  }
+</script>

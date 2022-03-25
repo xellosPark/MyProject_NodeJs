@@ -31,6 +31,7 @@
 }
 
 .card {
+    position: relative;
     border: 1px solid black;
     border-radius: 5px;
     align-items: center;
@@ -45,4 +46,13 @@
 
 .word-list {
     min-width: 300px;
+}
+
+.delete-btn{
+    /* 왼쪽 기준 */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
