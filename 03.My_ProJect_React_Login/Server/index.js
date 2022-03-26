@@ -35,9 +35,9 @@ app.post('/register', (req, res)=>{
   // 그것들을 데이터 베이스에 넣어준다.
 
   const user = new User(req.body)
+  
   // MongoDb 
   user.save((err, doc) => {
-    // console.log("메세지 확인");
     if(err) return res.json({ success: false, err})
     return res.status(200).json({
       success: true
