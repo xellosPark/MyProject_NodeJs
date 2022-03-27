@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const { use } = require('express/lib/router');
+const jwt = require('jsonwebtoken');
 //10은 2^10번 round를 돌림을 의미
 const saltRounds = 10;
 
@@ -63,9 +64,37 @@ userSchema.pre('save', function( next ){
                 next()
             })
         })
+    } else {
+        next()
     }
 })
 
-const User = mongoose.model('User', userSchema)
+// 함수 멤버 (입력된 패스워드, 콜백) 
+userSchema.methods.comparePassword = function(PlainPassword, cb) {
+    //PlainPassword 1234567 암회화된 비밀번호 "$2b$10$ndRQ5KOn3nEBXRo9pDvARu1o0HoC15ZYar7wKGxRoEDcd88vwteOO"
+    bcrypt.compare(PlainPassword, this.password, function(err, isMatch) {
+        // 비밀번호 틀린경우에 
+        console.log("isMatch1",isMatch);
+        if(err) return cb(err)
+        cb(null, isMatch)
+        // 비밀번호 맞는경우 (isMatch : true)
+        
+    })
+}
+//token 생성하기 (cd 콜백)
+userSchema.methods.generateToken = function(cb){
+    let user = this;
+    console.log('user._id', user._id)
+    // jsonwebtokend을 이용해서 token를 생성하기
+    var token = jwt.sign(user._id.toHexString(),'secretToken')
+    //user.id + 'secretToken' = token ->
+    //'secretToken' -> user._id
+    user.token = token
+    user.save(function(err, user){
+        if(err) return cb(err)
+        cb(null, user)
+    })
+}
 
+const User = mongoose.model('User', userSchema)
 module.exports = { User }
