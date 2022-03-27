@@ -74,7 +74,6 @@ userSchema.methods.comparePassword = function(PlainPassword, cb) {
     //PlainPassword 1234567 암회화된 비밀번호 "$2b$10$ndRQ5KOn3nEBXRo9pDvARu1o0HoC15ZYar7wKGxRoEDcd88vwteOO"
     bcrypt.compare(PlainPassword, this.password, function(err, isMatch) {
         // 비밀번호 틀린경우에 
-        console.log("isMatch1",isMatch);
         if(err) return cb(err)
         cb(null, isMatch)
         // 비밀번호 맞는경우 (isMatch : true)
@@ -84,15 +83,31 @@ userSchema.methods.comparePassword = function(PlainPassword, cb) {
 //token 생성하기 (cd 콜백)
 userSchema.methods.generateToken = function(cb){
     let user = this;
-    console.log('user._id', user._id)
+    // console.log('user._id', user._id)
     // jsonwebtokend을 이용해서 token를 생성하기
     var token = jwt.sign(user._id.toHexString(),'secretToken')
     //user.id + 'secretToken' = token ->
     //'secretToken' -> user._id
     user.token = token
+    //console.log(user.token);
     user.save(function(err, user){
         if(err) return cb(err)
         cb(null, user)
+    })
+}
+userSchema.statics.findByToken = function(token, cb){
+    let user = this;
+    //토큰을 decode 한다.
+    console.log('token', token);
+    jwt.verify(token, 'secretToken', function(err,decoded) {
+        //유저 아이디를 이용해서 유저를 찾은 다음에
+        //클라이어트에서 가져온 token과 db에 보관된 token이 일치하는지 확인
+        console.log('decoded', decoded);
+        user.findOne({"id": decoded, "token": token},
+        function(err, user) {
+            if(err) return cb(err);
+            cb(null, user)
+        })
     })
 }
 
