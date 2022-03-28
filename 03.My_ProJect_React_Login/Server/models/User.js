@@ -88,8 +88,7 @@ userSchema.methods.generateToken = function(cb){
     var token = jwt.sign(user._id.toHexString(),'secretToken')
     //user.id + 'secretToken' = token ->
     //'secretToken' -> user._id
-    user.token = token
-    //console.log(user.token);
+    user.token = token;
     user.save(function(err, user){
         if(err) return cb(err)
         cb(null, user)
