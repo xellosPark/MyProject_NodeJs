@@ -6,7 +6,7 @@ let auth = ( req, res, next ) => {
     // cilet cookie에서 토큰을 가져온다.
     // 토큰을 복호화 한후에 유저를 찾는다.
     // req.cookies cookie지원 멤버
-    console.log("req",req);
+    //console.log("req",req);
 
     let token = req.cookies.x_auth;
     User.findByToken(token, (err, user) => {

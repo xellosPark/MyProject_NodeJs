@@ -71,8 +71,9 @@ app.post('/api/users/login', (req, res)=>{
       user.generateToken((err, user) => {
         if(err) return res.status(400).send(err);
         // 토큰을 저정한다. 어디에? 쿠키, 로컬스토리지
-        //console.log('user.toKen',user.toKen);
-        res.cookie("x_auth", user.toKen)
+        //console.log('user_token',user.token);
+        // token 소문자 
+        res.cookie("x_auth", user.token)
           .status(200)
           .json({ loginSuccess: true, userId: user._id })
       })
@@ -101,7 +102,6 @@ app.get('/api/users/auth', auth, (err, user) => {
 })
 
 app.get('/api/users/logout', auth, (req, res) => {
-  console.log("err1");
   User.findOneAndUpdate({ _id: req.user._id},
     // auth 선언
     { toKen: "" }
