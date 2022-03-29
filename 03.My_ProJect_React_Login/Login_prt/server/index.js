@@ -3,11 +3,11 @@ const app = express()
 const port = 5000
 
 // Db Schema 데이를 갖져 온다
-const bodyParser = require("body-parser")
-const config = require("./config/key")
-const cookieParser = require("cookie-parser")
-const { auth } = require("./middleware/auth")
-const { User } = require("./models/User")
+const bodyParser = require("body-parser");
+const config = require("./config/key");
+const cookieParser = require("cookie-parser");
+const { auth } = require("./middleware/auth");
+const { User } = require("./models/User");
 
 
 //application/x-www-form-urlencoded
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/hello', (req, res) => {
-  res.send('Hello World!~~~안녕하세요 ~')
+  res.send('Hello World!~~~~')
 })
 
 // 회원 가입
