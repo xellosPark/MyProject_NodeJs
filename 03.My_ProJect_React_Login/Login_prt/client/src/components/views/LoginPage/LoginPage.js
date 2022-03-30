@@ -14,7 +14,7 @@ function LoginPage() {
   }
 
   const onSubmitHandler = (event) => {
-    //event.preventDefault 설정 안하면 화면 reflash 발생 
+    //event.preventDefault 설정 안하면 화면 reflash 발생 한다 
     event.preventDefault();
     console.log('Email', Email)
     console.log('Password', Password)
@@ -34,7 +34,7 @@ function LoginPage() {
         <label>Password</label>
         <input type="password" value={Password} onChange={onPasswordHandler} />
         <br />
-        <button>
+        <button type='submit'>
           Login
         </button>
       </form>
