@@ -4,7 +4,7 @@
   "description": "this is about my nodejs vocabulary",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js -e js,json,hbs"
   },
   "author": "Xellos",
   "license": "ISC",

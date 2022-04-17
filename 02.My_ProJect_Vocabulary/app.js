@@ -111,7 +111,13 @@
 // // express-handlebars 이용하여
 const express = require('express');
 const hds = require("express-handlebars");
+const bodyParser = require("body-parser");
 const server = express();
+//const words = require("./db/words.json");
+let words = require("./db/words.json");
+
+// console.log(words);
+// console.log(typeof words);
 
 server.engine('hbs', hds.engine({
         extname: 'hbs',
@@ -123,12 +129,41 @@ server.engine('hbs', hds.engine({
 // hbs 설정
 server.set('view engine', 'hbs');
 server.use(express.static(__dirname + "/public"));
+server.use(bodyParser.urlencoded({ extended: false }));
 
 server.get("/",(req,res) => {
     // console.log(req.user);
     res.render("home",{
-      message: "Hello from node.js",
+      //message: "Hello from node.js",
+      words: words,
     });
+});
+
+server.post("/", (req,res) => {
+    // console.log("A request has been received.");
+    const {query} = req.body;
+    console.log(req.body);
+    res.render("home",{
+        words: words.filter(w=>w.word.toLocaleUpperCase().includes(query.toLocaleUpperCase()))
+    });
+});
+
+server.delete("/",(req,res) => {
+    console.log(req.body);
+    let {word} = req.body;
+    words = words.filter(w=>!(w.word === word));
+});
+
+server.get("/add", (req, res) => {
+    res.render("add");
+});
+
+server.get("/quiz", (req, res) => {
+    res.render("quiz");
+});
+
+server.use((req, res) => {
+    res.render("404");
 });
 
 server.listen(3000,(err) => {
