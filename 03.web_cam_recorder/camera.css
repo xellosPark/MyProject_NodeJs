@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+}
+.wrapper {
+    height: 100%;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    /* 가로 */
+    align-items: center;
+     /* 세로  */
+    justify-content: center;
+}
+
+.video-container {
+    display: flex;
+    width: 550px;
+   /* 1rem 16px */
+    padding: 1rem;
+    /* 550px 적절히 여백 */
+    justify-content: space-around;
+}
+
+.video-item > h2 {
+    text-align: center;
+}
+
+.video-item > video {
+    border: 1px solid red;
+    width: 250px;
+    height: 188px;
+}
+
+button, a {
+    border: none;
+    font-size: 14px;
+    background: #ccc;
+    padding: 0.5rem 1rem;
+    /* click 손가락 모양 */
+    cursor: pointer;
+}
